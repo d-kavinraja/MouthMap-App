@@ -132,11 +132,6 @@ MIT License. Feel free to use, fork, and contribute.
 
 ---
 
-## 👨‍💻 Author
-
-**Kavinraja D**  
-[GitHub](https://github.com/d-kavinraja) | [LinkedIn](https://www.linkedin.com/in/kavinraja-d) | Dept. of AI & ML, Saveetha Engineering College
-
 ---
 
 ## 🌟 Contributing
