@@ -1,10 +1,4 @@
 
-import os
-
-# --- Setup system and Python dependencies ---
-
-
-os.system("pip install -r requirements.txt")
 
 # --- Now import packages ---
 import streamlit as st
