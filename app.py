@@ -300,4 +300,4 @@ elif mode == "📂 Use Test Dataset":
 
 # Footer
 st.markdown("---")
-st.markdown("<p style='text-align:center;'>Made with MouthMap-TEAM| © 2025</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;'>Made with MouthMap-TEAM | © 2025</p>", unsafe_allow_html=True)
