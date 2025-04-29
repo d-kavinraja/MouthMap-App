@@ -2,10 +2,7 @@
 import os
 
 # --- Setup system and Python dependencies ---
-try:
-    os.system("sudo apt update && sudo apt install -y libgl1")
-except Exception as e:
-    print(f"System-level dependency installation failed: {e}")
+
 
 os.system("pip install -r requirements.txt")
 
