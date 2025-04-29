@@ -218,7 +218,7 @@ def save_and_convert_video(uploaded_file, temp_dir):
 
 # --- UI ---
 st.markdown("<h1 style='text-align:center;'>📹 Lip Reading App</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center;'>Powered by AI 🤖</p>", unsafe_allow_html=True)
+
 
 # Sidebar controls
 st.sidebar.header("⚙️ Settings")
@@ -300,4 +300,4 @@ elif mode == "📂 Use Test Dataset":
 
 # Footer
 st.markdown("---")
-st.markdown("<p style='text-align:center;'>Made with ❤️ by xAI | © 2025</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;'>Made with MouthMap-TEAM| © 2025</p>", unsafe_allow_html=True)
