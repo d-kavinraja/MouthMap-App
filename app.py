@@ -1,4 +1,11 @@
-# --- Now import packages ---
+# --- Project Name: MouthMap ---
+
+# Developed by:
+# Kavin Raja D (212222240047)
+# Karnala Santhan Kumar (212223240065)
+# Thiyagarajan A (212222240110)
+
+# --- Import Packages ---
 import streamlit as st
 import cv2
 import tensorflow as tf
@@ -8,17 +15,49 @@ import tempfile
 import os
 import logging
 
-
 # --- Setup ---
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 MODEL_WEIGHTS_PATH = "Model/40th-epoch-model-checkpoint-keras-default-v1/checkpoint.weights.h5"
-TEST_DATASET_FOLDER = "test_video_dataset"  # contains videos and .txt alignments
+TEST_DATASET_FOLDER = "test_video_dataset"
 
 vocab = [x for x in "abcdefghijklmnopqrstuvwxyz0123456789'?! "]
 char_to_num = tf.keras.layers.StringLookup(vocabulary=vocab, oov_token="")
 num_to_char = tf.keras.layers.StringLookup(vocabulary=char_to_num.get_vocabulary(), oov_token="", invert=True)
 
+# --- Custom CSS for Light Theme and Black Text ---
+st.markdown("""
+<style>
+body {
+    background-color: #0f1117;
+    color: white;
+}
+h1, h2, h3, h4 {
+    color: white;
+    text-align: center;
+}
+label, .stRadio > div {
+    color: white !important;
+}
+section[data-testid="stFileUploader"] div {
+    color: white !important;
+}
+.st-emotion-cache-1cypcdb {
+    background-color: #1e1f26 !important;
+    border-radius: 10px;
+    padding: 20px;
+}
+.stButton > button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+# --- Helper Functions ---
 def load_video(path: str, target_frames: int = 75) -> tf.Tensor:
     cap = cv2.VideoCapture(path)
     frames = []
@@ -75,7 +114,6 @@ def predict_video(video_path: str):
     model = build_model()
     model.load_weights(MODEL_WEIGHTS_PATH)
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001), loss=CTCLoss)
-
     video_input = load_video(video_path)
     yhat = model.predict(video_input)
     decoded = tf.keras.backend.ctc_decode(yhat, input_length=[75], greedy=True)[0][0].numpy()
@@ -97,24 +135,27 @@ def parse_alignment(file_path: str) -> str:
         return f"Error: {e}"
 
 # --- UI ---
-st.markdown("<h1 style='text-align:center;'>📹 Lip Reading App</h1>", unsafe_allow_html=True)
+st.markdown("<h1>📹 MouthMap: Lip Reading App</h1>", unsafe_allow_html=True)
+st.markdown("<h3>Upload a video or select from test dataset to predict spoken sentences</h3>", unsafe_allow_html=True)
 
-mode = st.radio("Select Mode", ["Upload Video", "Use Test Dataset"])
+with st.container():
+    mode = st.radio("Select Mode", ["Upload Video", "Use Test Dataset"], horizontal=True)
 
-target_frames = st.sidebar.slider("Target Frames", 50, 100, 75)
+st.sidebar.markdown("<h2>Settings</h2>", unsafe_allow_html=True)
+target_frames = st.sidebar.slider("Target Frames", 50, 100, 75, help="Number of frames to process from the video")
 
 if mode == "Upload Video":
     uploaded_video = st.file_uploader("Upload a video (.mp4, .webm, .mpg)", type=["mp4", "webm", "mpg"])
     if uploaded_video:
         st.video(uploaded_video)
-
+        st.markdown(f"<p><strong>Selected Video:</strong> {uploaded_video.name}</p>", unsafe_allow_html=True)
         if st.button("🚀 Predict Sentence"):
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as tmp:
                 tmp.write(uploaded_video.read())
                 tmp_path = tmp.name
             try:
-                st.info("Predicting...")
-                result = predict_video(tmp_path)
+                with st.spinner("Predicting..."):
+                    result = predict_video(tmp_path)
                 st.success(f"Predicted Sentence: {result}")
             except Exception as e:
                 st.error(f"Error: {e}")
@@ -124,19 +165,21 @@ if mode == "Upload Video":
 elif mode == "Use Test Dataset":
     test_files = [f for f in os.listdir(TEST_DATASET_FOLDER) if f.endswith((".mp4", ".webm", ".mpg"))]
     selected_file = st.selectbox("Select a test video", test_files)
-
     if selected_file:
         video_path = os.path.join(TEST_DATASET_FOLDER, selected_file)
         align_path = os.path.splitext(video_path)[0] + ".align"
-
         st.video(video_path)
-
+        st.markdown(f"<p><strong>Selected Video:</strong> {selected_file}</p>", unsafe_allow_html=True)
         if st.button("🚀 Predict & Compare"):
             try:
-                pred_sentence = predict_video(video_path)
-                actual_sentence = parse_alignment(align_path)
+                with st.spinner("Predicting..."):
+                    pred_sentence = predict_video(video_path)
+                    actual_sentence = parse_alignment(align_path)
                 st.success("✅ Prediction Complete")
                 st.markdown(f"**Predicted Sentence:** {pred_sentence}")
                 st.markdown(f"**Actual Sentence:** {actual_sentence}")
             except Exception as e:
                 st.error(f"Error: {e}")
+
+# Footer
+
