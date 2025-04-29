@@ -1,10 +1,9 @@
 streamlit
-libgl1
+opencv-python-headless
 torch
 torchvision
 tensorflow
 torchaudio
-opencv-python
 numpy
 matplotlib
 Pillow
