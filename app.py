@@ -1,13 +1,23 @@
 
+import os
 
+# --- Setup system and Python dependencies ---
+try:
+    os.system("sudo apt update && sudo apt install -y libgl1")
+except Exception as e:
+    print(f"System-level dependency installation failed: {e}")
+
+os.system("pip install -r requirements.txt")
+
+# --- Now import packages ---
 import streamlit as st
 import cv2
 import tensorflow as tf
 import numpy as np
 from typing import List
-import os
 import tempfile
 import logging
+
 
 # --- Setup ---
 logging.basicConfig(level=logging.INFO)
