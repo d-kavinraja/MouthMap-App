@@ -1,4 +1,5 @@
 streamlit
+streamlit-lottie
 opencv-python-headless
 torch
 torchvision
