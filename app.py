@@ -296,9 +296,9 @@ st.sidebar.markdown("""
     We are a team of passionate students from Saveetha Engineering College, dedicated to advancing AI-driven solutions. Our expertise lies in deep learning, computer vision, and innovative application development.
 </p>
 <ul>
-    <li><b>Kavin Raja D</b>: Specializes in neural network architectures and data preprocessing.</li>
+    <li><b>Kavinraja D</b>: Specializes in neural network architectures.</li>
     <li><b>Karnala Santhan Kumar</b>: Expert in model optimization and deployment.</li>
-    <li><b>Thiyagarajan A</b>: Skilled in UI/UX design and frontend development.</li>
+    <li><b>Thiyagarajan A</b>: Skilled in Preprocessing the data and Data Science</li>
 </ul>
 """, unsafe_allow_html=True)
 
@@ -361,7 +361,7 @@ st.markdown("""
     <h2>Contact Us</h2>
     <div class="contact-container">
         <div class="contact-box">
-            <h4>Kavin Raja D</h4>
+            <h4>Kavinraja D</h4>
             <p>LinkedIn: <a href="https://www.linkedin.com/in/kavinraja" class="contact-link">kavinraja</a></p>
             <p>GitHub: <a href="https://github.com/kavinraja" class="contact-link">kavinraja</a></p>
         </div>
@@ -377,7 +377,7 @@ st.markdown("""
         </div>
     </div>
     <p style='font-size: 18px; color: gray; margin-top: 20px;'>
-        Developed by <b>Kavin Raja D</b>, <b>Karnala Santhan Kumar</b>, and <b>Thiyagarajan A</b> • Saveetha Engineering College • 2025
+        Developed by <b>Kavinraja D</b>, <b>Karnala Santhan Kumar</b>, and <b>Thiyagarajan A</b> • Saveetha Engineering College • 2025
     </p>
 </div>
 """, unsafe_allow_html=True)
