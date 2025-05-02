@@ -298,7 +298,7 @@ st.sidebar.markdown("""
 <ul>
     <li><b>Kavinraja D</b>: Specializes in neural network architectures.</li>
     <li><b>Karnala Santhan Kumar</b>: Expert in model optimization and deployment.</li>
-    <li><b>Thiyagarajan A</b>: Skilled in Preprocessing the data and Data Science</li>
+    <li><b>Thiyagarajan A</b>: Skilled in Preprocessing the data and Data Science.</li>
 </ul>
 """, unsafe_allow_html=True)
 
